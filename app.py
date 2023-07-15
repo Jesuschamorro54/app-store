@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.secret_key = os.urandom( 50 )
 
-from controllers import main
+from routes import main
 
 app.register_blueprint(main)
 

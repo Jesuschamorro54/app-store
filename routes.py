@@ -5,6 +5,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from database.database import *
 
+
+
 main = blueprints.Blueprint('main', __name__)
 
 @main.context_processor
@@ -15,4 +17,5 @@ def general_variables():
 @main.route('/', methods=['GET'])
 def index():
     return render_template('/index.html')
+
 
