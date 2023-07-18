@@ -38,7 +38,12 @@ def insert(table: str, values: dict):
 
     # PUT VALUES
     for key in values:
-        query += f"'{values[key]}', "
+
+        if isinstance(values[key], (str)):  # String type
+            query += f"'{values[key]}', "
+
+        else:
+            query += f"{values[key]}, "
 
     query = query.rstrip(', ')
 
