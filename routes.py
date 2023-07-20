@@ -10,7 +10,7 @@ main = blueprints.Blueprint('main', __name__)
 
 @main.context_processor
 def general_variables():
-    return { 'appName': "Tiendita" }
+    return { 'appName': "Tiendita Tactica" }
 
 
 # ------------------------ Template Rendering ------------------------

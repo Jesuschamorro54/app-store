@@ -1,14 +1,16 @@
 
 .nav-bar {
     position: fixed;
+    top: 0;
     width: 100%;
     height: 60px;
     background: #fff;
     box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+    z-index: 8;
 }
 
 .nav-bar .nav-bar-content {
-    max-width: 1080px;
+    max-width: 1345px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

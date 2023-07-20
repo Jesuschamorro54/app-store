@@ -8,6 +8,8 @@
     <!-- My Styles -->
     <link rel="stylesheet" href="{{url_for('static', filename='styles/root.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/nav-bar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/products.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/_icons.css')}}">
 
     <title>{{appName}}</title>
 </head>
@@ -39,6 +41,75 @@
 
         </div>
     </nav>
+
+
+    <main class="root">
+
+        <!-- Productos de la tienda -->
+        <div class="content">
+
+            <head>
+                <h3>Nuestros Productos</h3>
+            </head>
+
+            <div class="carousel">
+                
+                <span class="arrow left"> <i class="icon-arrow-left"></i> </span>
+                <span class="arrow right"> <i class="icon-arrow-right"></i> </span>
+                
+                <div class="cards">
+                    {% for store in [0,1,2,3, 5, 5, 5, 5, 5, 5] %}
+                    <div class="card">
+                        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="">
+
+                        <div class="product-info">
+                            <h5>Nombre del producto</h5>
+                            <span>Precio: $20</span>
+                        </div>
+
+                        <button class="btn-primary">
+                            Comprar
+                        </button>
+
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Productos destacados -->
+        <div class="content">
+            <h3>Productos Destacados</h3>
+
+            <div class="featured-products">
+                <div class="grid">
+                    {% for store in [0,1,2,3, 5, 5, 5, 5, 5, 5] %}
+                    <div class="card">
+                        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="">
+
+                        <div class="card-details">
+
+                            <div class="ofert">
+                                <span class="price">Cop$30.000</span>
+                                <span class="date">Hasta 03-10-2023</span>
+                            </div>
+
+                            <span class="ofert-description">Ahorra en tienda tactica y más</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
 </body>
 
 
