@@ -58,6 +58,48 @@ values = {"name": "'Alfredo'",
           "favorite": 1}
 
 
+def select(table, params):
+
+    fields = params.pop('fields', "*")
+    query = f"SELECT ("
+
+    if fields != "*":
+
+        for field in fields:
+
+            query += f"{field}, "
+
+        query = query[:-2]  # Delete coma.
+        query += ")"
+
+    else:
+        query = f"SELECT {fields}"
+
+    query += f" FROM {table}"
+
+    # Conditions of the query.
+    if params['condition']:
+        query += " WHERE "
+
+        for key, value in params['condition'].items():
+
+            # Verify if its numtype or something else.
+            if isinstance(value, (int, float)):
+                sentence = f'{key} = {value} AND '
+
+            else:
+                sentence = f'{key} LIKE "%{value}%" AND '
+
+            query += sentence
+
+        query = query[:-4]  # Delete AND.
+
+    else:
+        query += ";"
+
+    return query
+
+
 insert("clients", values)
 
 
