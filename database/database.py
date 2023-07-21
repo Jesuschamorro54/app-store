@@ -8,10 +8,6 @@ def search(table, params):
     pass
 
 
-def update():
-    pass
-
-
 def insert(table: str, values: dict):
     """
     insert
@@ -52,12 +48,6 @@ def insert(table: str, values: dict):
     return query
 
 
-values = {"name": "'Alfredo'",
-          "address": "'Villa Carolina'",
-          "email": "'alfredocomas8@gmail.com'",
-          "favorite": 1}
-
-
 def select(table, params):
 
     fields = params.pop('fields', "*")
@@ -69,7 +59,7 @@ def select(table, params):
 
             query += f"{field}, "
 
-        query = query[:-2]  # Delete coma.
+        query = query[:-2]  # Strip coma.
         query += ")"
 
     else:
@@ -92,7 +82,7 @@ def select(table, params):
 
             query += sentence
 
-        query = query[:-4]  # Delete AND.
+        query = query[:-4]  # Strip AND.
 
     else:
         query += ";"
@@ -100,7 +90,38 @@ def select(table, params):
     return query
 
 
-insert("clients", values)
+def update(table, params):
+
+    condition = params.pop('condition', None)
+    query = f"UPDATE {table}\nSET "
+
+    field = params['field']
+
+    if isinstance(field[1], (int, float)):
+        query += f'{field[0]} = {field[1]}'
+
+    else:
+        query += f'{field[0]} = "{field[1]}"'
+
+    # Verify if the query has a condition.
+    if condition:
+
+        query += " WHERE "
+
+        for key, value in condition.items():
+
+            if isinstance(value, (int, float)):
+                query += f"{key} = {value} AND "
+
+            else:
+                query += f'{key} = "{value}" AND '
+
+        query = query[:-4]  # Strip AND
+
+    query = query.rstrip()
+    query += ";"
+
+    return query
 
 
 def delete():
