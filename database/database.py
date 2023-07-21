@@ -1,5 +1,6 @@
 import pymysql
 from connection_db import execute_query, connect_db
+from controllers.methods import build_query
 
 connection = connect_db()
 
@@ -48,7 +49,7 @@ def insert(table: str, values: dict):
     return query
 
 
-def select(table, params):
+def search(table, params):
 
     fields = params.pop('fields', "*")
     query = f"SELECT ("
@@ -90,36 +91,23 @@ def select(table, params):
     return query
 
 
-def update(table, params):
+def update(table, condition, field):
 
-    condition = params.pop('condition', None)
-    query = f"UPDATE {table}\nSET "
+    # Init query.
+    query = f"UPDATE {table} SET "
 
-    field = params['field']
+    query = build_query(query, field[0], field[1], (int, float))
 
-    if isinstance(field[1], (int, float)):
-        query += f'{field[0]} = {field[1]}'
+    query += " WHERE "  # Start with the condition body.
 
-    else:
-        query += f'{field[0]} = "{field[1]}"'
+    for key, value in condition.items():
 
-    # Verify if the query has a condition.
-    if condition:
+        query = build_query(query, key, value, (int, float))
 
-        query += " WHERE "
+        query += " AND "
 
-        for key, value in condition.items():
-
-            if isinstance(value, (int, float)):
-                query += f"{key} = {value} AND "
-
-            else:
-                query += f'{key} = "{value}" AND '
-
-        query = query[:-4]  # Strip AND
-
-    query = query.rstrip()
-    query += ";"
+    # Strip AND, space and concatenate ';'.
+    query = query[:-4].rstrip() + ";"  # Final query.
 
     return query
 
@@ -130,7 +118,3 @@ def delete():
 
 def close():
     pass
-
-
-connection.commit()
-connection.close()
