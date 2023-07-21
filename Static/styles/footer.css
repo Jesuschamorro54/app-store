@@ -1,0 +1,98 @@
+footer {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    background-color: #232F3E;
+    min-width: 1000px;
+    position: relative;
+    padding-top: 55px;
+}
+
+footer .footer-content {
+    display: flex;
+    flex-direction: column;
+}
+
+footer .navFooterVerticalColumn {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+footer .navFooterVerticalColumn .navFooterVerticalRow {
+    display: table-row;
+}
+
+.navFooterVerticalRow .navFooterLinkCol {
+    color: #333;
+    vertical-align: top;
+    line-height: 120%;
+    display: table-cell;
+    padding: 0 10px;
+}
+
+.navFooterLinkCol .navFooterColHead {
+    font-weight: 700;
+    color: #FFF;
+    font-size: 16px;
+    margin: 6px 0 14px 0;
+    white-space: nowrap;
+}
+
+.navFooterLinkCol ul li {
+    list-style: disc;
+    list-style-type: none;
+    white-space: nowrap;
+    margin: 0 0 10px;
+}
+
+.navFooterLinkCol ul li a {
+    text-decoration: none;
+    color: #DDD;
+    white-space: normal;
+}
+
+.navFooterLinkCol ul li a:hover {
+    text-decoration:underline;
+}
+
+
+footer .navFooterLine {
+    position: relative;
+    font-family: inherit;
+    color: #DDD;
+    font-size: 11px;
+    line-height: 18px;
+    white-space: nowrap;
+    margin: 10px auto;
+    font-size: 12px;    
+}
+
+footer .navFooterLine .logo {
+    position: absolute;
+    left: -64px;
+    top: -11px;
+}
+
+footer .navFooterLine .logo img {
+    background-position: -10px -90px;
+    width: 55px;
+    margin: 0 auto;
+}
+
+footer .navFooterPadItemLine {
+    text-align: center;
+    max-width: 1000px;
+    margin: 30px auto 15px;
+}
+
+footer .icp-container-desktop .navFooterLine a {
+    color: #DDD;
+    text-decoration: none;
+    display: inline-block!important;
+    border: 1px solid #848688;
+    border-radius: 3px;
+    padding: 6px 18px 6px 8px;
+    font-size: 13px;
+    margin-right: 4px;
+
+
+}

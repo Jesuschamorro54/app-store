@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='styles/nav-bar.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/products.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='styles/_icons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/footer.css')}}">
 
     <title>{{appName}}</title>
 </head>
@@ -44,73 +45,171 @@
 
 
     <main class="root">
-
-        <!-- Productos de la tienda -->
-        <div class="content">
-
-            <head>
-                <h3>Nuestros Productos</h3>
-            </head>
-
-            <div class="carousel">
-                
-                <span class="arrow left"> <i class="icon-arrow-left"></i> </span>
-                <span class="arrow right"> <i class="icon-arrow-right"></i> </span>
-                
-                <div class="cards">
-                    {% for store in [0,1,2,3, 5, 5, 5, 5, 5, 5] %}
-                    <div class="card">
-                        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="">
-
-                        <div class="product-info">
-                            <h5>Nombre del producto</h5>
-                            <span>Precio: $20</span>
-                        </div>
-
-                        <button class="btn-primary">
-                            Comprar
-                        </button>
-
-                    </div>
-                    {% endfor %}
-                </div>
-
-
-            </div>
-
-        </div>
-
-        <hr>
-
-        <!-- Productos destacados -->
-        <div class="content">
-            <h3>Productos Destacados</h3>
-
-            <div class="featured-products">
-                <div class="grid">
-                    {% for store in [0,1,2,3, 5, 5, 5, 5, 5, 5] %}
-                    <div class="card">
-                        <img src="https://definicion.de/wp-content/uploads/2009/06/producto.png" alt="">
-
-                        <div class="card-details">
-
-                            <div class="ofert">
-                                <span class="price">Cop$30.000</span>
-                                <span class="date">Hasta 03-10-2023</span>
-                            </div>
-
-                            <span class="ofert-description">Ahorra en tienda tactica y más</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-        </div>
-
+        {% block home %} {% endblock %}
     </main>
 
+    <footer>
+        <div class="footer-content">
+            <div class="navFooterVerticalColumn navAccessibility" role="presentation">
+                <div class="navFooterVerticalRow navAccessibility">
+                    <div class="navFooterLinkCol navAccessibility">
+                        <div class="navFooterColHead">Conócenos</div>
+                        <ul>
+                            <li class="nav_first">
+                                <a href="https://www.amazon.jobs" class="nav_a">Trabaja en Amazon</a>
+                            </li>
+                            <li>
+                                <a href="https://blog.aboutamazon.com/?utm_source=gateway&amp;utm_medium=footer"
+                                    class="nav_a">Blog</a>
+                            </li>
+                            <li>
+                                <a href="https://www.aboutamazon.com/?utm_source=gateway&amp;utm_medium=footer"
+                                    class="nav_a">Acerca de Amazon</a>
+                            </li>
+                            <li>
+                                <a href="https://www.amazon.com/-/es/ir" class="nav_a">Relaciones con los
+                                    Inversionistas</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/browse.html?node=2102313011&amp;ref_=footer_devices"
+                                    class="nav_a">Dispositivos Amazon</a>
+                            </li>
+                            <li class="nav_last ">
+                                <a href="https://www.amazon.science" class="nav_a">Amazon Science</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navFooterColSpacerInner navAccessibility"></div>
+                    <div class="navFooterLinkCol navAccessibility">
+                        <div class="navFooterColHead">Gana Dinero con Nosotros</div>
+                        <ul>
+                            <li class="nav_first">
+                                <a href="https://services.amazon.com/sell.html?ld=AZFSSOA&amp;ref_=footer_soa"
+                                    class="nav_a">Vender productos en Amazon</a>
+                            </li>
+                            <li>
+                                <a href="https://services.amazon.com/amazon-business.html?ld=usb2bunifooter&amp;ref_=footer_b2b"
+                                    class="nav_a">Vende en Amazon Business</a>
+                            </li>
+                            <li>
+                                <a href="https://developer.amazon.com" class="nav_a">Vender aplicaciones en Amazon</a>
+                            </li>
+                            <li>
+                                <a href="https://affiliate-program.amazon.com/" class="nav_a">Programa de Afiliados</a>
+                            </li>
+                            <li>
+                                <a href="https://advertising.amazon.com/?ref=ext_amzn_ftr" class="nav_a">Anuncia tus
+                                    Productos</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/seller-account/mm-summary-page.html?ld=AZFooterSelfPublish&amp;topic=200260520&amp;ref_=footer_publishing"
+                                    class="nav_a">Publica tu Libro en Kindle</a>
+                            </li>
+                            <li>
+                                <a href="https://go.thehub-amazon.com/amazon-hub-locker" class="nav_a">Habilita un
+                                    Amazon Hub</a>
+                            </li>
+                            <li class="nav_last nav_a_carat">
+                                <span class="nav_a_carat" aria-hidden="true">›</span><a
+                                    href="/-/es/b/?node=18190131011&amp;ld=AZUSSOA-seemore&amp;ref_=footer_seemore"
+                                    class="nav_a">Ver más Gana Dinero con Nosotros</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navFooterColSpacerInner navAccessibility"></div>
+                    <div class="navFooterLinkCol navAccessibility">
+                        <div class="navFooterColHead">Productos de Pago de Amazon</div>
+                        <ul>
+                            <li class="nav_first">
+                                <a href="/-/es/gp/browse.html?node=16218619011&amp;ref_=footer_swp" class="nav_a">Compra
+                                    con Puntos</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/browse.html?node=10232440011&amp;ref_=footer_reload_us"
+                                    class="nav_a">Recarga tu Saldo</a>
+                            </li>
+                            <li class="nav_last ">
+                                <a href="/-/es/gp/browse.html?node=388305011&amp;ref_=footer_tfx"
+                                    class="nav_a">Conversor de divisas de Amazon</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="navFooterColSpacerInner navAccessibility"></div>
+                    <div class="navFooterLinkCol navAccessibility">
+                        <div class="navFooterColHead">Podemos Ayudarte</div>
+                        <ul>
+                            <li class="nav_first">
+                                <a href="/-/es/gp/help/customer/display.html?nodeId=GDFU3JS5AL6SYHRD&amp;ref_=footer_covid"
+                                    class="nav_a">Amazon y el COVID-19</a>
+                            </li>
+                            <li>
+                                <a href="https://www.amazon.com/-/es/gp/css/homepage.html?ref_=footer_ya"
+                                    class="nav_a">Tu Cuenta</a>
+                            </li>
+                            <li>
+                                <a href="https://www.amazon.com/-/es/gp/css/order-history?ref_=footer_yo"
+                                    class="nav_a">Tus Pedidos</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/help/customer/display.html?nodeId=468520&amp;ref_=footer_shiprates"
+                                    class="nav_a">Tarifas de Envío y Políticas</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/css/returns/homepage.html?ref_=footer_hy_f_4"
+                                    class="nav_a">Devoluciones y Reemplazos</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/digital/fiona/manage?ref_=footer_myk" class="nav_a">Administrar
+                                    Contenido y Dispositivos</a>
+                            </li>
+                            <li>
+                                <a href="/-/es/gp/BIT/ref=footer_bit_v2_us_A0029?bitCampaignCode=A0029"
+                                    class="nav_a">Amazon Assistant</a>
+                            </li>
+                            <li class="nav_last ">
+                                <a href="/-/es/gp/help/customer/display.html?nodeId=508510&amp;ref_=footer_gw_m_b_he"
+                                    class="nav_a">Ayuda</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navFooterLine navFooterLinkLine navFooterPadItemLine">
+                <span>
+                    <div class="navFooterLine navFooterLogoLine">
+                        <a aria-label="Amazon US Home" href="/-/es/?ref_=footer_logo">
+                            <div class="nav-logo-base nav-sprite"></div>
+                        </a>
+                    </div>
+                </span>
+
+                <span class="icp-container-desktop">
+                    <div class="navFooterLine">
+
+                        <span class="logo">
+                            <img src="{{url_for('static', filename='imgs/logo.png')}}" alt="">
+                        </span>
+
+
+                        <a href="">Español</a>
+                        <a href="">$ COP - Peso colombiano</a>
+                        <a href="">
+                            <img src="https://d3puay5pkxu9s4.cloudfront.net/icons/flags/4x3/co.svg" alt="" class="country-flag">
+                            <span>Colombia</span>
+                        </a>
+                    </div>
+                </span>
+
+            </div>
+        </div>
+    </footer>
+
+
+    <script  src="{{url_for('static', filename='js/root.js')}}"></script>
 </body>
+
+
 
 
 </html>

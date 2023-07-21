@@ -20,7 +20,7 @@ def index():
 
 @main.route('/home', methods=['GET'])
 def home():
-    return render_template('/index.html')
+    return render_template('/home.html')
 
 
 
