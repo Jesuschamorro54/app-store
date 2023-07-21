@@ -5,10 +5,6 @@ from controllers.methods import build_query
 connection = connect_db()
 
 
-def search(table, params):
-    pass
-
-
 def insert(table: str, values: dict):
     """
     insert
@@ -17,9 +13,9 @@ def insert(table: str, values: dict):
     This method simulates an INSERT query from MySql using the keys and the values to create 
     a functional and scalable sentence. Returns the query.
 
-    params:
-    * table: string. Receives the name of the table where the query will be insert.
-    * values: dict. Receives a dictionary with the name of the key and its respective value.
+    Params:
+    * table: Receives the name of the table where the query will be insert.
+    * values: Receives a dictionary with the name of the key and its respective value.
 
     """
     query = f"INSERT INTO {table} ("
@@ -29,59 +25,59 @@ def insert(table: str, values: dict):
 
         query += f"{key}, "
 
-    query = query.rstrip(', ')
-
-    query += ") values ("
+    # Query body
+    query = query.rstrip(', ') + ") values ("
 
     # PUT VALUES
     for key in values:
 
-        if isinstance(values[key], (str)):  # String type
-            query += f"'{values[key]}', "
+        query = build_query(query, values, key, (int, float), 2)
 
-        else:
-            query += f"{values[key]}, "
-
-    query = query.rstrip(', ')
-
-    query += ")"
+    query = query.rstrip(', ') + ")"
 
     return query
 
 
 def search(table, params):
+    """
+    search
+    ----
+    This method simulate the 'SELECT' method from MySql. Creates a sentence and search
+    with it in the database. Can be parametrized with conditionals and logic comparators.
+    Returns the query.
+
+    Params:
+    * table: The name of the table where the method will be used.
+    * params: A set of params with fields and conditions.
+    """
 
     fields = params.pop('fields', "*")
     query = f"SELECT ("
 
+    # Init query.
     if fields != "*":
 
         for field in fields:
 
             query += f"{field}, "
 
-        query = query[:-2]  # Strip coma.
-        query += ")"
+        query = query[:-2] + ")"  # Strip coma and close tuple.
 
     else:
         query = f"SELECT {fields}"
 
+    # End of the query head.
     query += f" FROM {table}"
 
-    # Conditions of the query.
+    # Query conditions.
     if params['condition']:
         query += " WHERE "
 
         for key, value in params['condition'].items():
 
-            # Verify if its numtype or something else.
-            if isinstance(value, (int, float)):
-                sentence = f'{key} = {value} AND '
+            query = build_query(query, key, value, (int, float), 1)
 
-            else:
-                sentence = f'{key} LIKE "%{value}%" AND '
-
-            query += sentence
+            query += " AND "
 
         query = query[:-4]  # Strip AND.
 
@@ -92,6 +88,18 @@ def search(table, params):
 
 
 def update(table, condition, field):
+    """
+    update
+    ---
+    This method simulate the 'UPDATE' fucntion of MySql. Can be parametrized in its
+    body with conditions, use reserved words (SET) and logic comparators. Returns teh query.
+
+    Params:
+    * table: The name of the table in the database.
+    * condition: A set of conditions connected by 'AND'.
+    * field: The field which will be updated by the method. 
+
+    """
 
     # Init query.
     query = f"UPDATE {table} SET "
@@ -112,8 +120,33 @@ def update(table, condition, field):
     return query
 
 
-def delete():
-    pass
+def delete(table, condition):
+    """
+    delete
+    ---
+    This method simulates the 'DELETE' function from MySql. Requieres a mandatory
+    condition or a set of them. Returns the query.
+
+    Params:
+    * table: The name of the table in the database.
+    * condition: The mandatory set of conditions to delete a register in the table.
+
+    """
+
+    # Init query.
+    query = f"DELETE FROM {table} WHERE "
+
+    # Body condition.
+    for key, value in condition.items():
+
+        query = build_query(query, key, value, (int, float))
+
+        query += " AND "
+
+    # Strip AND, space and add the ";".
+    query = query[:-4].rstrip() + ";"  # Final query
+
+    return query
 
 
 def close():
