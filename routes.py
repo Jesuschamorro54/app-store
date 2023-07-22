@@ -20,6 +20,16 @@ def index():
 
 @main.route('/home', methods=['GET'])
 def home():
+    # Interpretar que quiere el front en este html
+
+
+    # Llamas al controlador encargado de esa logica
+
+
+
+    # Imprimir la data que le enviarás al front
+    print(f"Datos para el front: {None}")
+    
     return render_template('/home.html')
 
 
