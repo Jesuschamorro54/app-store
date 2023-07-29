@@ -1,9 +1,15 @@
 import pymysql
-from connection_db import execute_query, connect_db
-from colors import R, RS
+from connection_db import execute_query
 
-connection = connect_db()
-
+BL = '\033[30m'  # Black
+R = '\033[31m'  # Red
+G = '\033[32m'  # Green
+Y = '\033[33m'  # Yellow
+B = '\033[34m'  # Blue
+M = '\033[35m'  # Magenta
+C = '\033[36m'  # Cian
+W = '\033[37m'  # White
+RS = '\033[39m'  # Reset
 
 def build_query(query: str, val, val2, types: tuple, status: int = 0):
     """
@@ -85,7 +91,7 @@ def insert(table: str, values: dict):
 
     query = query.rstrip(', ') + ")"
 
-    return query
+    execute_query(query, True)
 
 
 def search(table, params):
@@ -134,7 +140,7 @@ def search(table, params):
     else:
         query += ";"
 
-    return query
+    execute_query(query)
 
 
 def update(table, condition, field):
@@ -167,7 +173,7 @@ def update(table, condition, field):
     # Strip AND, space and concatenate ';'.
     query = query[:-4].rstrip() + ";"  # Final query.
 
-    return query
+    execute_query(query)
 
 
 def delete(table, condition):
@@ -196,8 +202,16 @@ def delete(table, condition):
     # Strip AND, space and add the ";".
     query = query[:-4].rstrip() + ";"  # Final query
 
-    return query
+    execute_query(query)
 
 
 def close():
     pass
+
+data = {
+    'name': 'Jesus',
+    'cellphone': '3046448353',
+    'mon': 345
+}
+
+insert('clients', data)

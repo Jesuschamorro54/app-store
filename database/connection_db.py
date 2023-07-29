@@ -21,14 +21,14 @@ def connect_db():
         "host": "localhost",
         "user": "root",
         "password": "alracopo1",
-        "database": "problema_1",
+        "database": "flask_app",
         "charset": "utf8mb4",
         "cursorclass": pymysql.cursors.DictCursor
     }
 
     try:
         connection = pymysql.connect(**params)
-        print(f"{G} * Connection to MySQL instance done.{RS}")
+        print(f"{G} * Connection to MySQL instance succesfully.{RS}")
 
     except Exception as e:
         print(f"{R} * Couldn't connect to MySQL instance: {RS}", e)
@@ -36,7 +36,7 @@ def connect_db():
     return connection
 
 
-def execute_query(query):
+def execute_query(query, rw=False):
     """
     execute_query
     ---
@@ -56,8 +56,13 @@ def execute_query(query):
         with conn.cursor() as cursor:
             cursor.execute(query)
 
-            data = cursor.fetchall()
-            print(f"{G} *The query has been executed successfully.{RS}")
+            if not rw:
+                data = cursor.fetchall()
+
+            else:
+                conn.commit()
+
+        print(f"{G} *The query has been executed successfully.{RS}")
 
     except Exception as e:
-        print(f'{R} * ERROR: Could not execute SQL query.\n{RS} {e}')
+        print(f'{R} * ERROR: Couldnt connect to the database.\n{RS} {e}')
