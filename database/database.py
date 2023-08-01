@@ -1,14 +1,9 @@
 import pymysql
 from connection_db import execute_query
 
-BL = '\033[30m'  # Black
+# Colors
 R = '\033[31m'  # Red
 G = '\033[32m'  # Green
-Y = '\033[33m'  # Yellow
-B = '\033[34m'  # Blue
-M = '\033[35m'  # Magenta
-C = '\033[36m'  # Cian
-W = '\033[37m'  # White
 RS = '\033[39m'  # Reset
 
 def build_query(query: str, val, val2, types: tuple, status: int = 0):
@@ -56,7 +51,7 @@ def build_query(query: str, val, val2, types: tuple, status: int = 0):
             query += f'"{val[val2]}", '
 
     else:
-        print(f"{R}* STATUS ONLY RECIEVES STATUS FROM 0 TO 1 (one digit).{RS}")
+        print(f"{R}* STATUS ONLY RECIEVES STATUS FROM 0 TO 2 (one digit).{RS}")
 
     return query
 
@@ -91,7 +86,7 @@ def insert(table: str, values: dict):
 
     query = query.rstrip(', ') + ")"
 
-    execute_query(query, True)
+    return execute_query(query, True)
 
 
 def search(table, params):
@@ -209,9 +204,9 @@ def close():
     pass
 
 data = {
-    'name': 'Jesus',
-    'cellphone': '3046448353',
-    'mon': 345
+    'name': 'Julian',
+    'cellphone': '1234565432',
+    'email': 'julian123@gmail.com'
 }
 
 insert('clients', data)

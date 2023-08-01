@@ -1,5 +1,5 @@
 from database.database import insert
-from controllers.validators import str_validator, bool_validator
+from controllers.validators import num_validator
 
 R = '\033[31m'  # Red
 RS = '\033[39m'  # Reset
@@ -26,15 +26,11 @@ def main(event):
 
     for field, value in data.items():
 
-        if str_validator(value):
+        if num_validator(value):
             validation.append(1)
-        
-    favorite = data['favorite']
-    if bool_validator(favorite):
-        validation.append(1)
 
     if len(validation) == len(data):
-        result = insert('clients', data)
+        result = insert('details', data)
 
     else:
         print(f"{R} * You must complete the fields properly. {RS}")
@@ -42,12 +38,14 @@ def main(event):
     # Response
     return {'status': bool(result), 'data': result}
 
-
 event = {
     'body': {
-        'name': "",
-        'cellphone': "",
-        'email': "",
-        'favorite': None
+        'quantity': 0,
+        'discount': 0,
+        'total': 0
+    },
+    'params': {
+        'order_id': 0,
+        'article_id': 0
     }
 }

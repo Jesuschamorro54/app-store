@@ -61,8 +61,11 @@ def execute_query(query, rw=False):
 
             else:
                 conn.commit()
+                data = True
 
         print(f"{G} *The query has been executed successfully.{RS}")
 
     except Exception as e:
         print(f'{R} * ERROR: Couldnt connect to the database.\n{RS} {e}')
+    
+    return data
