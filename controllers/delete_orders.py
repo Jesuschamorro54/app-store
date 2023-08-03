@@ -1,5 +1,5 @@
 from database.database import delete
-from controllers.validators import str_validator, num_validator
+from controllers.validators import num_validator
 
 R = '\033[31m'  # Red
 RS = '\033[39m'  # Reset
@@ -23,7 +23,7 @@ def main(event):
             validation.append(1)
     
     if len(validation) == len(params):
-        result = delete('details', params)
+        result = delete('orders', params)
     
     # Response
     return {'status': bool(result), 'data': result}
@@ -31,9 +31,7 @@ def main(event):
 event = {
     'body': {},
     'params': {
-        'quantity': 0,
-        'discount': 0,
-        'total': 0
+        'client_id': 0
     },
     'user': {}
 }

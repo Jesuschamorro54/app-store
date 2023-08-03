@@ -22,8 +22,12 @@ def main(event):
         if num_validator(value):
             validation.append(1)
     
+    name = params['name']
+    if str_validator(name):
+        validation.append(1)
+    
     if len(validation) == len(params):
-        result = delete('details', params)
+        result = delete('articles', params)
     
     # Response
     return {'status': bool(result), 'data': result}
@@ -31,9 +35,12 @@ def main(event):
 event = {
     'body': {},
     'params': {
-        'quantity': 0,
-        'discount': 0,
-        'total': 0
+        'name': "",
+        'cost': 0,
+        'price': 0,
+        'sale': 0,
+        'stock': 0,
+        'distributor_id': 0
     },
     'user': {}
 }

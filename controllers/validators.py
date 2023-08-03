@@ -1,6 +1,6 @@
 R = '\033[31m'  # Red
 RS = '\033[39m'  # Reset
-
+ 
 def num_validator(value, ref=0):
     
     if isinstance(value, (int, float)) and value >= ref: # Documentar despues.

@@ -138,7 +138,7 @@ def search(table, params):
     execute_query(query)
 
 
-def update(table, condition, field):
+def update(table, field, condition):
     """
     update
     ---
@@ -197,7 +197,7 @@ def delete(table, condition):
     # Strip AND, space and add the ";".
     query = query[:-4].rstrip() + ";"  # Final query
 
-    execute_query(query)
+    return execute_query(query)
 
 
 def close():
@@ -209,4 +209,4 @@ data = {
     'email': 'julian123@gmail.com'
 }
 
-insert('clients', data)
+

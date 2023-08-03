@@ -24,13 +24,12 @@ def main(event):
 
     # Response
     return {'status': bool(result), 'data': result}
-    
 
 event = {
     'body': {},
     'params': {
-        'name': "Alfredo",
-        'cellphone': 3046448353
+        'distributor_id': 0,
+        'cost': 0
     },
     'user': {}
 }
