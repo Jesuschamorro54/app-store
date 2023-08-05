@@ -5,7 +5,7 @@ R = '\033[31m'  # Red
 RS = '\033[39m'  # Reset
 
 def main(event):
-    
+      
     # Header
     try:
         data = event['body']

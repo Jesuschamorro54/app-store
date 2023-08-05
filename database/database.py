@@ -1,5 +1,5 @@
 import pymysql
-from connection_db import execute_query
+from .connection_db import execute_query
 
 # Colors
 R = '\033[31m'  # Red
@@ -121,10 +121,10 @@ def search(table, params):
     query += f" FROM {table}"
 
     # Query conditions.
-    if params['condition']:
+    if params:
         query += " WHERE "
 
-        for key, value in params['condition'].items():
+        for key, value in params.items():
 
             query = build_query(query, key, value, (int, float), 1)
 
@@ -204,9 +204,11 @@ def close():
     pass
 
 data = {
-    'name': 'Julian',
-    'cellphone': '1234565432',
-    'email': 'julian123@gmail.com'
+    'name': 'Luis',
+    'cellphone': '9387427272',
+    'email': 'luisdiaz@gmail.com'
 }
+
+insert('clients', data)
 
 

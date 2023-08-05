@@ -20,7 +20,7 @@ def main(event):
         return f"{R}* The method needs the params.{RS} {e}"
     
     # Body
-    result = search('clients', params)
+    result = search('articles', params)
 
     # Response
     return {'status': bool(result), 'data': result}
