@@ -45,6 +45,7 @@ def execute_query(query, rw=False):
 
     params:
     * query: The query on SQL.
+    * rw: Read & Write. False -> Select. True -> Insert, Update, Delete. 
     """
 
     # SELECT.
@@ -61,7 +62,7 @@ def execute_query(query, rw=False):
 
             else:
                 conn.commit()
-                data = True
+                data = cursor.lastrowid
 
         print(f"{G} *The query has been executed successfully.{RS}")
 

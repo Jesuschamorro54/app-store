@@ -7,23 +7,6 @@ from controllers import *
 
 main = blueprints.Blueprint('main', __name__)
 
-def param_loads(str_params: str):
-
-    path = []
-    for i in str_params.split("&"):
-        path.append(i.split("="))
-
-    dictionary = {}
-    for key, val in path:
-        dictionary.update({key : val})
-
-    return dictionary
-
-@main.context_processor
-def general_variables():
-    return {'appName': "Tiendita Tactica"}
-
-
 # ------------------------ Template Rendering ------------------------
 @main.route('/', methods=['GET'])
 def index():
@@ -49,58 +32,13 @@ def home():
 
     # return render_template('/home.html')
 
-# ------------------- Methods Routes -------------------------
 
-# POST:
-@main.route('/clients', methods=['POST'])
-def api_post_clients():
-    
-    event = {
-        'body': {},
-        'params': {},
-        'user': {}
-    }
+@main.context_processor
+def general_variables():
+    return {'appName': "Tiendita Tactica"}
 
 
-@main.route('/distributors', methods=['POST'])
-def api_post_distribuitors():
-    event = {
-        'body': {
-            'name': "",
-            'cellphone': "",
-            'email': "",
-            'company': ""
-        },
-        'params': {}
-    }
-
-    response = post_distributors.main(event)
-    return response
-
-
-@main.route('/distributors/<distributor_id>/articles', methods=['POST'])
-def api_post_articles(distributor_id):
-
-    body = json.loads(request.data)
-    params = {}
-
-    # View_args contiene los parametros de ruta de la peticion (request).
-    for k, v in request.view_args.items(): 
-
-        params.update({k:json.loads(v)})
-
-    print(params)
-
-    event = {
-        'body': body,
-        'params': params
-    }
-
-    print(event)
-
-    response = post_articles.main(event)
-
-    return response
+# ------------------- Structure Methods -----------------
 
 def request_parse(request):
     
@@ -123,8 +61,49 @@ def request_parse(request):
 
     return event
 
+def param_loads(str_params: str):
 
-@main.route('/orders', methods=['POST'])
+    path = []
+    for i in str_params.split("&"):
+        path.append(i.split("="))
+
+    dictionary = {}
+    for key, val in path:
+        dictionary.update({key : val})
+
+    return dictionary
+
+# ------------------- Methods Routes -------------------------
+
+# POST:
+@main.route('/clients', methods=['POST'])
+def api_post_clients():
+    
+    event = request_parse(request)
+    response = post_clients.main(event)
+
+    return response
+
+
+@main.route('/distributors', methods=['POST'])
+def api_post_distribuitors():
+
+    event = request_parse(request)
+    response = post_distributors.main(event)
+
+    return response
+
+
+@main.route('/distributors/<distributor_id>/articles', methods=['POST'])
+def api_post_articles(distributor_id):
+
+    event = request_parse(request)
+    response = post_articles.main(event)
+
+    return response
+
+
+@main.route('/clients/<client_id>/orders', methods=['POST'])
 def api_post_orders():
     
     event = request_parse(request)
@@ -133,32 +112,38 @@ def api_post_orders():
     return response
 
 
-@main.route('/details', methods=['POST'])
+@main.route('/articles/<article_id>/orders/<order_id>/details', methods=['POST'])
 def api_post_details():
-    pass
+    
+    event = request_parse(request)
+    response = post_details.main(event)
+
+    return response
 
 
 # GET
 @main.route('/clients', methods=['GET'])
 def api_get_clients():
-    pass
+
+    event = request_parse(request)
+    response = get_clients.main(event)
+
+    return response
 
 
 @main.route('/clients', methods=['GET'])
 def api_get_distributors():
-    pass
+
+    event = request_parse(request)
+    response = get_distributors.main(event)
+
+    return response
 
 
 @main.route('/articles', methods=['GET'])
 def api_get_articles():
-    event = {
-        'body': {},
-        'params': {
-            'distributor_id': 0,
-            'cost': 0
-        },
-        'user': {}
-    }
+
+    event = request_parse(request)
     response = get_articles.main(event)
 
     return response
@@ -166,59 +151,113 @@ def api_get_articles():
 
 @main.route('/orders', methods=['GET'])
 def api_get_orders():
-    pass
+
+    event = request_parse(request)
+    response = get_orders.main(event)
+
+    return response
 
 
 @main.route('/details', methods=['GET'])
 def api_get_details():
-    pass
+
+    event = request_parse(request)
+    response = get_details.main(event)
+
+    return response
 
 
-@main.route('/clients', methods=['PUT'])
+# PUT:
+@main.route('/clients/<client_id>', methods=['PUT'])
 def api_put_clients():
-    pass
+    
+    event = request_parse(request)
+    response = put_clients.main(event)
+
+    return response
 
 
-@main.route('/distributors', methods=['PUT'])
+@main.route('/distributors/<distributor_id>', methods=['PUT'])
 def api_put_distributors():
-    pass
+
+    event = request_parse(request)
+    response = put_distributors.main(event)
+
+    return response
 
 
-@main.route('/articles', methods=['PUT'])
+
+@main.route('/articles/<article_id>', methods=['PUT'])
 def api_put_articles():
-    pass
+
+    event = request_parse(request)
+    response = put_articles.main(event)
+
+    return response
 
 
-@main.route('/orders', methods=['PUT'])
+
+@main.route('/orders/<order_id>', methods=['PUT'])
 def api_put_orders():
-    pass
+
+    event = request_parse(request)
+    response = put_orders.main(event)
+
+    return response
 
 
-@main.route('/details', methods=['PUT'])
+
+@main.route('/details/<details_id>', methods=['PUT'])
 def api_put_details():
-    pass
+
+    event = request_parse(request)
+    response = put_details.main(event)
+
+    return response
 
 
-@main.route('/clients', methods=['DELETE'])
+# DELETE: 
+@main.route('/clients/<client_id>', methods=['DELETE'])
 def api_delete_clients():
-    pass
+
+    event = request_parse(request)
+    response = delete_clients.main(event)
+
+    return response
 
 
-@main.route('/distributors', methods=['DELETE'])
+
+@main.route('/distributors/<distributor_id>', methods=['DELETE'])
 def api_delete_distributors():
-    pass
+
+    event = request_parse(request)
+    response = delete_distributors.main(event)
+
+    return response
 
 
-@main.route('/articles', methods=['DELETE'])
+@main.route('/articles/<article_id>', methods=['DELETE'])
 def api_delete_articles():
-    pass
+
+    event = request_parse(request)
+    response = delete_articles.main(event)
+
+    return response
 
 
-@main.route('/orders', methods=['DELETE'])
+@main.route('/orders/<order_id>', methods=['DELETE'])
 def api_delete_orders():
-    pass
+
+    event = request_parse(request)
+    response = delete_orders.main(event)
+
+    return response
 
 
-@main.route('/details', methods=['DELETE'])
+@main.route('/details/<details_id>', methods=['DELETE'])
 def api_delete_details():
-    pass
+
+    event = request_parse(request)
+    response = delete_details.main(event)
+
+    return response

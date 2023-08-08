@@ -22,7 +22,7 @@ def main(event):
         
     # Body
     validation = []
-    result = {}
+    result = {'data': [], 'status': False}
 
     for field, value in data.items():
 
@@ -34,13 +34,26 @@ def main(event):
         validation.append(1)
 
     if len(validation) == len(data):
-        result = insert('articles', data)
+        inserted = insert('articles', data)
+        result = {
+            'data': inserted,
+            'status': bool(inserted)
+        }
 
     else:
         print(f"{R} * You must complete the fields properly. {RS}")
 
     # Response
-    return {'status': bool(result), 'data': result}
+    status = result['status']
+
+    if not status:
+        result.update({
+            'data': [],
+            'error': "CreateException",
+            'errorMessage': "Coulnt create the article register." 
+        }) 
+
+    return result
 
 event = {
     'body': {

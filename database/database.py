@@ -56,37 +56,43 @@ def build_query(query: str, val, val2, types: tuple, status: int = 0):
     return query
 
 
-def insert(table: str, values: dict):
+def insert(table: str, data: dict):
     """
     insert
     -----
 
-    This method simulates an INSERT query from MySql using the keys and the values to create 
+    This method simulates an INSERT query from MySql using the keys and the data to create 
     a functional and scalable sentence. Returns the query.
 
     Params:
     * table: Receives the name of the table where the query will be insert.
-    * values: Receives a dictionary with the name of the key and its respective value.
+    * data: Receives a dictionary with the name of the key and its respective value.
 
     """
     query = f"INSERT INTO {table} ("
 
     # PUT KEYS
-    for key in values:
+    for key in data:
 
         query += f"{key}, "
 
     # Query body
-    query = query.rstrip(', ') + ") values ("
+    query = query.rstrip(', ') + ") VALUES ("
 
-    # PUT VALUES
-    for key in values:
+    # PUT VALUES:
+    for key in data:
 
-        query = build_query(query, values, key, (int, float), 2)
+        query = build_query(query, data, key, (int, float), 2)
 
     query = query.rstrip(', ') + ")"
 
-    return execute_query(query, True)
+    id = execute_query(query, True)
+
+    if not id:
+        return False
+
+    data.update({'id': id})
+    return data
 
 
 def search(table, params):
@@ -168,7 +174,7 @@ def update(table, field, condition):
     # Strip AND, space and concatenate ';'.
     query = query[:-4].rstrip() + ";"  # Final query.
 
-    execute_query(query)
+    execute_query(query, True)
 
 
 def delete(table, condition):
@@ -197,18 +203,11 @@ def delete(table, condition):
     # Strip AND, space and add the ";".
     query = query[:-4].rstrip() + ";"  # Final query
 
-    return execute_query(query)
+    return execute_query(query, True)
 
 
 def close():
     pass
 
-data = {
-    'name': 'Luis',
-    'cellphone': '9387427272',
-    'email': 'luisdiaz@gmail.com'
-}
-
-insert('clients', data)
 
 
