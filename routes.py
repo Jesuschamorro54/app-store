@@ -112,17 +112,8 @@ def api_post_orders():
     return response
 
 
-@main.route('/articles/<article_id>/orders/<order_id>/details', methods=['POST'])
-def api_post_details():
-    
-    event = request_parse(request)
-    response = post_details.main(event)
-
-    return response
-
-
 # GET
-@main.route('/clients', methods=['GET'])
+@main.route('/clients/<client_id>', methods=['GET'])
 def api_get_clients():
 
     event = request_parse(request)
@@ -131,7 +122,7 @@ def api_get_clients():
     return response
 
 
-@main.route('/clients', methods=['GET'])
+@main.route('/distributors/<distributor_id>', methods=['GET'])
 def api_get_distributors():
 
     event = request_parse(request)
@@ -140,7 +131,7 @@ def api_get_distributors():
     return response
 
 
-@main.route('/articles', methods=['GET'])
+@main.route('/distributors/<distributor_id>/articles/<article_id>', methods=['GET'])
 def api_get_articles():
 
     event = request_parse(request)
@@ -149,20 +140,11 @@ def api_get_articles():
     return response
 
 
-@main.route('/orders', methods=['GET'])
+@main.route('/clients/<client_id>/orders/<order_id>', methods=['GET'])
 def api_get_orders():
 
     event = request_parse(request)
     response = get_orders.main(event)
-
-    return response
-
-
-@main.route('/details', methods=['GET'])
-def api_get_details():
-
-    event = request_parse(request)
-    response = get_details.main(event)
 
     return response
 
@@ -187,7 +169,7 @@ def api_put_distributors():
 
 
 
-@main.route('/articles/<article_id>', methods=['PUT'])
+@main.route('/distributors/<distributor_id>/articles/<article_id>', methods=['PUT'])
 def api_put_articles():
 
     event = request_parse(request)
@@ -197,21 +179,11 @@ def api_put_articles():
 
 
 
-@main.route('/orders/<order_id>', methods=['PUT'])
+@main.route('/clients/<client_id>/orders/<order_id>', methods=['PUT'])
 def api_put_orders():
 
     event = request_parse(request)
     response = put_orders.main(event)
-
-    return response
-
-
-
-@main.route('/details/<details_id>', methods=['PUT'])
-def api_put_details():
-
-    event = request_parse(request)
-    response = put_details.main(event)
 
     return response
 
@@ -226,7 +198,6 @@ def api_delete_clients():
     return response
 
 
-
 @main.route('/distributors/<distributor_id>', methods=['DELETE'])
 def api_delete_distributors():
 
@@ -236,7 +207,7 @@ def api_delete_distributors():
     return response
 
 
-@main.route('/articles/<article_id>', methods=['DELETE'])
+@main.route('/distributors/<distributor_id>/articles/<article_id>', methods=['DELETE'])
 def api_delete_articles():
 
     event = request_parse(request)
@@ -245,7 +216,7 @@ def api_delete_articles():
     return response
 
 
-@main.route('/orders/<order_id>', methods=['DELETE'])
+@main.route('/clients/<client_id>/orders/<order_id>', methods=['DELETE'])
 def api_delete_orders():
 
     event = request_parse(request)
@@ -253,11 +224,3 @@ def api_delete_orders():
 
     return response
 
-
-@main.route('/details/<details_id>', methods=['DELETE'])
-def api_delete_details():
-
-    event = request_parse(request)
-    response = delete_details.main(event)
-
-    return response
