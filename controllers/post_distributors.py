@@ -22,28 +22,40 @@ def main(event):
         
     # Body
     validation = []
-    result = {}
+    result = {'data': [], 'status': False}
 
-    for field, value in data.items():
+    company = data['company']
 
-        if str_validator(value):
-            validation.append(1)
+    if company:
 
-    if len(validation) == len(data):
-        result = insert('distributors', data)
+        for field, value in data.items():
+
+            if str_validator(value):
+                validation.append(1)
+
+        if len(validation) == len(data):
+            inserted = insert('distributors', data)
+            result = {
+                'data': inserted,
+                'status': bool(inserted)
+            }
+
+
+
+        else:
+            print(f"{R} * You must complete the fields properly. {RS}")
 
     else:
-        print(f"{R} * You must complete the fields properly. {RS}")
+        return f"{RS} * Field 'COMPANY' is necessary to make a database register. {RS}"
 
     # Response
-    return {'status': bool(result), 'data': result}
+    status = result['status']
 
-event = {
-    'body': {
-        'name': "",
-        'cellphone': "",
-        'email': "",
-        'company': ""
-    },
-    'params': {}
-}
+    if not status:
+        result.update({
+            'data': [],
+            'error': "CreateException",
+            'errorMessage': "Coulnt create the distributor register." 
+        }) 
+
+    return result

@@ -24,24 +24,32 @@ def main(event):
     validation = []
     result = {'data': [], 'status': False}
 
-    for field, value in data.items():
-
-        if num_validator(value):
-            validation.append(1)
-    
     name = data['name']
-    if str_validator(name):
-        validation.append(1)
+    price = data['price']
 
-    if len(validation) == len(data):
-        inserted = insert('articles', data)
-        result = {
-            'data': inserted,
-            'status': bool(inserted)
-        }
+    if name and price:
 
+        for field, value in data.items():
+
+            if num_validator(value):
+                validation.append(1)
+        
+        if str_validator(name):
+            validation.append(1)
+
+        if len(validation) == len(data):
+            inserted = insert('articles', data)
+            result = {
+                'data': inserted,
+                'status': bool(inserted)
+            }
+
+        else:
+            print(f"{R} * You must complete the fields properly. {RS}")
+    
     else:
-        print(f"{R} * You must complete the fields properly. {RS}")
+        return f"{RS} * Fields 'NAME'and 'PRICE' are necessary to make a database register. {RS}"
+
 
     # Response
     status = result['status']
@@ -55,15 +63,3 @@ def main(event):
 
     return result
 
-event = {
-    'body': {
-        'name': "",
-        'cost': 0,
-        'price': 0,
-        'sale': 0,
-        'stock': 0
-    },
-    'params': {
-        'distributor_id': 0
-    }
-}

@@ -4,6 +4,8 @@ from controllers.validators import num_validator
 R = '\033[31m'  # Red
 RS = '\033[39m'  # Reset
 
+id_param_name = 'detail_id'
+
 def main(event):
     
     #Header
@@ -14,42 +16,54 @@ def main(event):
         if 'params' in event:
             params = event['params']
 
+        # Get off the old var and replace it with a new one.
+        if id_param_name in params:
+            params['id'] = params.pop(id_param_name)
+
     except KeyError as e:
         return f"{R}* This method requires the params.{e}{RS}"
 
     # Body
     validation = []
-    result = {}
+    result = {'data': [], 'status': False}
 
-    for field, value in data.items():
+    # Mandatory params.
+    total = data['total']
+    discount = data['discount']
 
-        if num_validator(value):
-            validation.append(1)
+    if total and discount:
 
-    # Condition validation
-    for field, value in params.items():
+        for field, value in data.items():
 
-        if num_validator(value):
-            validation.append(1)
+            if num_validator(value):
+                validation.append(1)
 
-    if len(validation) == (len(data) + len(params)):
-        result = update('details', data, params)
-    
+        # Condition validation
+        for field, value in params.items():
+
+            if num_validator(value):
+                validation.append(1)
+
+        if len(validation) == (len(data) + len(params)):
+            result = update('details', data, params)
+        
+        else:
+            print(f"{R}* You must complete the fields properly. {RS}")
+
     else:
-        print(f"{R}* You must complete the fields properly. {RS}")
+        return f"{RS} * Field 'NAME' is necessary to update a database register. {RS}"
 
     # Response
-    return {'status': bool(result), 'data': result}
+    status = result['status']
+
+    if not status:
+        result.update({
+            'data': [],
+            'error': "UpdateException",
+            'errorMessage': "Coulnt update the details register." 
+        }) 
+
+    return result
 
 
-event = {
-    'body': {
-        'quantity': 0,
-        'discount': 0,
-        'total': 0
-    },
-    'params': {
-        'order_id': 0,
-        'article_id': 0
-    }
-}
+

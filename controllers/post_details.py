@@ -22,30 +22,41 @@ def main(event):
         
     # Body
     validation = []
-    result = {}
+    result = {'data': [], 'status': False}
 
-    for field, value in data.items():
+    # Mandatory params.
+    total = data['total']
+    discount = data['discount']
 
-        if num_validator(value):
-            validation.append(1)
+    if total and discount:
+        for field, value in data.items():
 
-    if len(validation) == len(data):
-        result = insert('details', data)
+            if num_validator(value):
+                validation.append(1)
+
+        if len(validation) == len(data):
+            inserted = insert('details', data)
+            result = {
+                'data': inserted,
+                'status': bool(inserted)
+            }
+
+
+        else:
+            print(f"{R} * You must complete the fields properly. {RS}")
 
     else:
-        print(f"{R} * You must complete the fields properly. {RS}")
+        return f"{RS} * Field 'TOTAL' is necessary to make a database register. {RS}"
 
     # Response
-    return {'status': bool(result), 'data': result}
+    status = result['status']
 
-event = {
-    'body': {
-        'quantity': 0,
-        'discount': 0,
-        'total': 0
-    },
-    'params': {
-        'order_id': 0,
-        'article_id': 0
-    }
-}
+    if not status:
+        result.update({
+            'data': [],
+            'error': "CreateException",
+            'errorMessage': "Coulnt create the detials register." 
+        }) 
+
+    return result
+
