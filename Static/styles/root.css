@@ -79,7 +79,7 @@ body {
     align-self: center;
 }
 
-input {
+input:not(input[type="file"]) {
   --boder-radius-size: 5px;
 
   height: 15px;
@@ -98,8 +98,8 @@ input {
   transition: all 200ms;
 }
 
-input:focus,
-input:hover {
+input:not(input[type="file"]):focus,
+input:not(input[type="file"]):hover {
   outline: none;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);

@@ -1,5 +1,5 @@
 import pymysql
-from connection_db import execute_query, connect_db
+from .connection_db import execute_query, connect_db
 from colors import R, RS
 
 connection = connect_db()
