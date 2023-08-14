@@ -16,21 +16,7 @@ def index():
 @main.route('/home', methods=['GET'])
 def home():
 
-    # Interpretar que quiere el front en este html
-    # - Nuevos productos
-    # - Productos destacados
-    # - Datos de los productos
-
-    # Llamas al controlador encargado de esa logica
-    # response = main(event)
-
-    print(request.view_args)
-    params = param_loads(request.query_string.decode('utf-8'))
-
-    print(params)
-    return {'status': True, 'data': []}
-
-    # return render_template('/home.html')
+    return render_template('/home.html')
 
 
 @main.context_processor
