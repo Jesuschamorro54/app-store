@@ -5,7 +5,7 @@ $(document).ready(function() {
         // Obtener los datos del formulario
         var formData = $("#create-article-form").serialize();
         const data = decodeBinaryData(formData);
-        http.post('/articles', data).then(response => {
+        http.post('/distributors/2/articles', data).then(response => {
             console.log(response)
         })
     });
@@ -25,7 +25,7 @@ function decodeBinaryData(formData) {
         if (value) data[field] = isNumberField(value) ? parseFloat(value) : value
     })
 
-    return JSON.stringify({ data })
+    return JSON.stringify(data)
 }
 
 // document.addEventListener("submit", postArticle)

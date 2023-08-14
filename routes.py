@@ -7,6 +7,10 @@ from controllers import *
 
 main = blueprints.Blueprint('main', __name__)
 
+@main.context_processor
+def general_variables():
+    return {'appName': "Tiendita Tactica"}
+
 # ------------------------ Template Rendering ------------------------
 @main.route('/', methods=['GET'])
 def index():
@@ -19,9 +23,9 @@ def home():
     return render_template('/home.html')
 
 
-@main.context_processor
-def general_variables():
-    return {'appName': "Tiendita Tactica"}
+@main.route('/add/articles', methods=['GET'])
+def add_article():
+    return render_template('/creations/create_article.html')
 
 
 # ------------------- Structure Methods -----------------
@@ -84,6 +88,7 @@ def api_post_distribuitors():
 def api_post_articles(distributor_id):
 
     event = request_parse(request)
+    
     response = post_articles.main(event)
 
     return response
