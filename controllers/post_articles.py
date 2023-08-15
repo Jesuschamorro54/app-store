@@ -24,6 +24,7 @@ def main(event):
     validation = []
     result = {'data': [], 'status': False}
 
+    # Mandatory
     name = data['name']
     price = data['price']
 

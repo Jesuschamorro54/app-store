@@ -41,7 +41,8 @@ def request_parse(request):
         params.update({k : json.loads(v)})
 
     # Body create
-    body = json.loads(request.data)
+    print(request.data)
+    body = json.loads(request.data.decode("utf-8"))
 
     # Response structure
     event = {
@@ -49,6 +50,7 @@ def request_parse(request):
         'params': params
     }
 
+    print(event)
     return event
 
 def param_loads(str_params: str):
