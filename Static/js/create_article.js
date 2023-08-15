@@ -16,16 +16,16 @@ function decodeBinaryData(formData) {
     let data = {}
 
     const isNumberField = (field) => {
-        const fields =  ['sales', 'price']
+        const fields =  ['sale', 'price']
         return Boolean(fields.includes(field))
     }
 
     decodeURIComponent(formData).split("&").forEach((item) => {
         const [field, value ] = item.split("=")
-        if (value) data[field] = isNumberField(value) ? parseFloat(value) : value
+        if (value) data[field] = isNumberField(field) ? parseFloat(value) : value
     })
 
-    return JSON.stringify(data)
+    return data
 }
 
 // document.addEventListener("submit", postArticle)
