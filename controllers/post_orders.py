@@ -1,5 +1,6 @@
 from database.database import insert
 from controllers.validators import str_validator, num_validator
+import datetime
 
 R = '\033[31m'  # Red
 RS = '\033[39m'  # Reset
@@ -27,7 +28,14 @@ def main(event):
     validation = []
     result = {'data': [], 'status': False}
 
+    # Mandatory params.
     total = data['total']
+
+    # Default params.
+    default = {
+        'purchase_date' : datetime.datetime.now(),
+        'amount' : 1
+    }
 
     if total:
 

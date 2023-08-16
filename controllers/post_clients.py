@@ -24,9 +24,20 @@ def main(event):
     validation = []
     result = {'data': [], 'status': False}
 
+    # Mandatory params.
     name = data['name']
+    email = data['email']
 
-    if name:
+    # Default params.
+    default = {
+        'cellphone': "0",
+        'favorite': False
+        }
+
+    # Update with defaults.
+    data.update({**default})
+
+    if name and email:
 
         for field, value in data.items():
 
@@ -48,7 +59,7 @@ def main(event):
             print(f"{R} * You must complete the fields properly. {RS}")
 
     else:
-        return f"{RS} * Field 'NAME' is necessary to make a database register. {RS}"
+        return f"{RS} * Fields 'NAME' and 'EMAIL are necessary to make a database register. {RS}"
 
     # Response
     status = result['status']

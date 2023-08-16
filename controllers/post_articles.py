@@ -28,6 +28,15 @@ def main(event):
     name = data['name']
     price = data['price']
 
+    # Default params.
+    default = {
+        'sale': 0,
+        'stock': 1
+    }
+
+    # Update with defaults.
+    data.update({**default})
+
     if name and price:
 
         for field, value in data.items():
@@ -49,7 +58,7 @@ def main(event):
             print(f"{R} * You must complete the fields properly. {RS}")
     
     else:
-        return f"{RS} * Fields 'NAME'and 'PRICE' are necessary to make a database register. {RS}"
+        return f"{RS} * Fields 'NAME' and 'PRICE' are necessary to make a database register. {RS}"
 
 
     # Response
